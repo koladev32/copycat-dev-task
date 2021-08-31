@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/yup": "^0.29.13",
+    "axios": "^0.21.1",
+    "formik": "^2.2.9",
+    "yup": "^0.32.9"
+  }
+}

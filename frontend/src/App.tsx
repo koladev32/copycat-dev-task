@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import * as Yup from "yup";
+import {useFormik} from "formik";
+import axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [loading, setLoading] = useState(false)
+
+    const handleParseAction = (html: string) => {
+
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            html: ""
+        },
+
+        onSubmit: values => {
+            setLoading(true);
+            handleParseAction(values.html);
+        },
+        validationSchema: Yup.object({
+            html: Yup.string().trim().required("This field can't be blank.")
+        })
+    })
+    return (
+        <div className="p-6 h-screen">
+            <h1 className="text-2xl font-bold">Find similar Node</h1>
+
+            <div className="w-full h-3/4 mt-5">
+                <h3 className="font-bold">Paste HTML in textbox below</h3>
+                <form className="h-3/4" onSubmit={formik.handleSubmit}>
+                    <textarea
+                        className="border-2 border-black-600 h-full w-full"
+                        id="html"
+                        name="html"
+                        value={formik.values.html}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    {formik.errors.html && <div className="text-red-500">{formik.errors.html}</div>}
+
+                    <div className="flex justify-center items-center mt-6">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="p-2 w-32 bg-yellow-400 text-black font-bold"
+                        >
+                            Process Code
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 }
 
 export default App;
