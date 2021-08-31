@@ -6,6 +6,11 @@ from collections import Counter
 def parse_html(html_data):
     """
     Get HTML and parse it.
+    - Create a tag count and parent count
+    - Filter tags with classname or value or id
+    - Check if the parent is already present in the tag count and
+    the parent count
+    - Remove the tags with repeated parents
     """
 
     format_html = lxml.html.fromstring(html_data)
