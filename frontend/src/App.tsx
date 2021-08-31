@@ -7,7 +7,6 @@ function App() {
     const [loading, setLoading] = useState(false)
 
     const handleParseAction = (html: string) => {
-        console.log(html)
         axios.post(`${process.env.REACT_APP_API_URL}/parse_html/`, {html: String(html)}, {
             headers: {"content-Type": "text/plain"}
         })
