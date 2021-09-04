@@ -2,16 +2,17 @@ import React, {useState} from 'react';
 import * as Yup from "yup";
 import {useFormik} from "formik";
 import axios from "axios";
+import Result from "./components/Result";
 
 function App() {
     const [loading, setLoading] = useState(false)
-
+    const [results, setResults] = useState([]);
     const handleParseAction = (html: string) => {
         axios.post(`${process.env.REACT_APP_API_URL}/parse_html/`, {html: String(html)}, {
             headers: {"content-Type": "text/plain"}
         })
             .then((res) => {
-                console.log(res)
+                setResults(res.data.data)
             }).catch((err) => {
             console.error(err)
         })
@@ -59,6 +60,13 @@ function App() {
                         </button>
                     </div>
                 </form>
+            </div>
+
+            <div className="flex flex-wrap justify-center m-4">
+                {results && results.map((result, index) => {
+                    // @ts-ignore
+                    return (<Result count={result.count} value={result.value} className={result.className} innerHTML={result.innerHTML} parent={result.parent} tag={result.tag}/>)
+                })}
             </div>
         </div>
     );
