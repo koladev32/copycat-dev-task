@@ -19,4 +19,6 @@ class HtmlParserView(APIView):
 
         response = parse_html(html_data)
 
+
+
         return Response({"data": response}, status=status.HTTP_200_OK)
