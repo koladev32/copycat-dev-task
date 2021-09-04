@@ -62,7 +62,7 @@ function App() {
                 </form>
             </div>
 
-            <div className="flex flex-wrap justify-center m-4">
+            <div className="flex flex-wrap justify-center m-4 space-x-4">
                 {results && results.map((result, index) => {
                     // @ts-ignore
                     return (<Result count={result.count} value={result.value} className={result.className} innerHTML={result.innerHTML} parent={result.parent} tag={result.tag}/>)

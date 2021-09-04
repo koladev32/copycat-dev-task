@@ -10,7 +10,7 @@ interface IResult {
     tag?: string;
 }
 
-const Result: React.FC<IResult> = ({count, tag, parent, value, className, innerHTML, children}) => {
+const Result: React.FC<IResult> = ({count, tag, parent="", value="", className="", innerHTML=""}) => {
 
     const parentNode = parent;
     let node;

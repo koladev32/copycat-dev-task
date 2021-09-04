@@ -22,10 +22,7 @@ def parse_html(html_data):
     # Creating a tag count and parent dict
 
     for el in format_html.iter():
-        if el.tag in format_tag_count.keys() and el.attrib.get('class') == format_tag_count[el.tag].get('class') \
-                and el.attrib.get('value') == format_tag_count[el.tag].get('value'):
-            if el.getparent().tag:
-                parents_nodes.add(el.getparent().tag)
+        if el.tag in format_tag_count.keys():
             format_tag_count[el.tag]['count'] += 1
             format_tag_count[el.tag]['parent'] = el.getparent().tag if el.getparent() and el.getparent().tag not in \
                                                                        IGNORED_TAG_LIST else None
@@ -35,8 +32,6 @@ def parse_html(html_data):
             format_tag_count[el.tag]['tag'] = el.tag
 
         else:
-            if el.tag in format_tag_count.keys() and format_tag_count[el.tag].get('count') <= 2:
-                continue
             format_tag_count[el.tag] = {
                 'count': 1,
                 'parent': el.getparent().tag if el.getparent() and el.getparent().tag not in IGNORED_TAG_LIST else None,
@@ -49,9 +44,5 @@ def parse_html(html_data):
                 parents_nodes.add(el.getparent().tag)
 
     format_tag_count = {tag: value for (tag, value) in format_tag_count.items() if value['count'] >= 2}
-
-    # for key in format_tag_count.copy():
-    #     if key in parents_nodes:
-    #         format_tag_count.pop(key)
 
     return [value for value in format_tag_count.values()]
